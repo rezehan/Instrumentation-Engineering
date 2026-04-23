@@ -1,0 +1,30 @@
+void setup()
+{
+    pinMode(A0, INPUT);
+    Serial.begin(9600);
+
+    // Cetak judul tabel SATU KALI saat Arduino pertama kali menyala
+    Serial.println("=================================================");
+    Serial.println("|| Waktu (s) |   Nilai Analog   |   Tegangan   ||");
+    Serial.println("=================================================");
+}
+
+void loop()
+{
+    int analogValue = analogRead(A0);
+    float tegangan = analogValue * (5.0 / 1023.0);
+
+    // Ambil waktu sejak Arduino menyala, ubah dari milidetik ke detik
+    float waktu = millis() / 1000.0;
+
+    // Cetak isi tabel menggunakan tab (\t) agar sejajar
+    Serial.print("||   ");
+    Serial.print(waktu, 1); // Angka 1 berarti tampilkan 1 desimal di belakang koma
+    Serial.print("   \t |      ");
+    Serial.print(analogValue);
+    Serial.print("     \t    |     ");
+    Serial.print(tegangan);
+    Serial.println(" V    ||");
+
+    delay(1000); // Biar tidak terlalu cepat
+}
